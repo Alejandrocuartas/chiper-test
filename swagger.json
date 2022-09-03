@@ -1,0 +1,185 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Chiper api",
+        "description": "Marketplace chiper",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/product": {
+            "get": {
+                "description": "List all products",
+                "responses": {
+                    "200": {
+                        "description": "Successfully got all products",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "products": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "price": {
+                                                        "type": "number"
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "discount": {
+                                                        "type": "number"
+                                                    },
+                                                    "image": {
+                                                        "type": "string"
+                                                    },
+                                                    "bought": {
+                                                        "type": "boolean"
+                                                    }
+                                                },
+                                                "example": {
+                                                    "name": "Laptop",
+                                                    "price": 1000,
+                                                    "description": "Programming laptop",
+                                                    "discount": "15",
+                                                    "image": "https://th.bing.com/th/id/OIP.jQ3b29lkbIqj0D6sV4ngmAAAAA?pid=ImgDet&rs=1",
+                                                    "bought": false
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Could not get the products",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "The error message"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates a product",
+                "responses": {
+                    "200": {
+                        "description": "Successfully created the product",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "product": {
+                                            "type": "object",
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "price": {
+                                                    "type": "number"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "discount": {
+                                                    "type": "number"
+                                                },
+                                                "image": {
+                                                    "type": "string"
+                                                },
+                                                "bought": {
+                                                    "type": "boolean"
+                                                }
+                                            },
+                                            "example": {
+                                                "name": "Laptop",
+                                                "price": 1000,
+                                                "description": "Programming laptop",
+                                                "discount": "15",
+                                                "image": "https://th.bing.com/th/id/OIP.jQ3b29lkbIqj0D6sV4ngmAAAAA?pid=ImgDet&rs=1",
+                                                "bought": false
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Could not post the product",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "error": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "error": "The error message"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "uploadFile",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "formData",
+                        "description": "name of the product",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "description",
+                        "in": "formData",
+                        "description": "description of the product",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "discount",
+                        "in": "formData",
+                        "description": "percentage of the discount",
+                        "required": false,
+                        "type": "number"
+                    },
+                    {
+                        "name": "productImage",
+                        "in": "formData",
+                        "description": "image of the product",
+                        "required": true,
+                        "type": "file"
+                    },
+                    {
+                        "name": "price",
+                        "in": "formData",
+                        "description": "price of the product",
+                        "required": true,
+                        "type": "number"
+                    }
+                ]
+            }
+        }
+    }
+}
