@@ -27,7 +27,11 @@ class ServerModel {
     middlewares() {
         this.app.use(express.static("public"));
         this.app.use(express.json());
-        this.app.use(cors());
+        this.app.use(
+            cors({
+                origin: "https://chiper-test.herokuapp.com",
+            })
+        );
         this.app.use(
             fileUpload({
                 useTempFiles: true,
@@ -44,11 +48,14 @@ class ServerModel {
     routes() {
         this.app.use("/api", productRouter);
         this.app.get("/*", (req, res) => {
-            res.sendFile(path.join(__dirname, "../docs/index.html"), (err) => {
-                if (err) {
-                    res.status(500).send(err);
+            res.sendFile(
+                path.join(__dirname, "../public/index.html"),
+                (err) => {
+                    if (err) {
+                        res.status(500).send(err);
+                    }
                 }
-            });
+            );
         });
     }
 
