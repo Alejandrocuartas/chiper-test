@@ -12,7 +12,7 @@ const getProductsController = async (req = request, res = response) => {
     try {
         const products = await getProducts();
         return res.status(200).json({
-            products,
+            products: products.reverse(),
         });
     } catch (error) {
         return res.status(500).json({
@@ -29,7 +29,7 @@ const createProductController = async (req = request, res = response) => {
             imagePath = tempFilePath;
         }
         const { description, name, price, discount } = req.body;
-        const product = await createProduct(
+        const products = await createProduct(
             name,
             price,
             description,
@@ -37,9 +37,10 @@ const createProductController = async (req = request, res = response) => {
             imagePath
         );
         return res.status(200).json({
-            product,
+            products,
         });
     } catch (error) {
+        console.log(error.message);
         return res.status(500).json({
             error: error.message,
         });
@@ -49,9 +50,9 @@ const createProductController = async (req = request, res = response) => {
 const deleteProductController = async (req = request, res = response) => {
     try {
         const { id } = req.params;
-        const product = await deleteProduct(id);
+        const products = await deleteProduct(id);
         return res.status(200).json({
-            product,
+            products,
         });
     } catch (error) {
         return res.status(500).json({
@@ -64,9 +65,9 @@ const updateProductController = async (req = request, res = response) => {
     try {
         const { id } = req.params;
         const body = req.body;
-        const product = await updateProduct(id, body);
+        const products = await updateProduct(id, body);
         return res.status(200).json({
-            product,
+            products,
         });
     } catch (error) {
         return res.status(500).json({
@@ -77,7 +78,7 @@ const updateProductController = async (req = request, res = response) => {
 
 const buyProductController = async (req = request, res = response) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const product = await buyProduct(id);
         return res.status(200).json({
             product,

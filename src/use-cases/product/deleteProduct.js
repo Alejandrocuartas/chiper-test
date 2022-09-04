@@ -2,8 +2,9 @@ const { Product } = require("../../entities");
 
 const deleteProduct = async (id) => {
     try {
-        const product = await Product.findByIdAndDelete(id);
-        return product;
+        await Product.findByIdAndDelete(id);
+        const products = await Product.find();
+        return products;
     } catch (error) {
         throw new Error(error.message);
     }

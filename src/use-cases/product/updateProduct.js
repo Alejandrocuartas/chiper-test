@@ -2,8 +2,9 @@ const { Product } = require("../../entities");
 
 const updateProduct = async (id, newInfo) => {
     try {
-        const product = await Product.findByIdAndUpdate(id, newInfo);
-        return product;
+        await Product.findByIdAndUpdate(id, newInfo);
+        const products = await Product.find();
+        return products;
     } catch (error) {
         throw new Error(error.message);
     }

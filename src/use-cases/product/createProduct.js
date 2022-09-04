@@ -20,7 +20,8 @@ const createProduct = async (
             image,
         });
         await newProduct.save();
-        return newProduct;
+        const products = await Product.find();
+        return products;
     } catch (error) {
         throw new Error(error.message);
     }
