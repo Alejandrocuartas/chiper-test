@@ -3,21 +3,34 @@ const fileUpload = require("express-fileupload");
 const cors = require("cors");
 const path = require("path");
 const swaggerUI = require("swagger-ui-express");
+const { Server } = require("socket.io");
+const { createServer } = require("http");
 
 const swaggerSetup = require("../swagger.json");
 const { dbConnector } = require("./data-access");
 const { productRouter } = require("./routes");
+const socketController = require("./sockets/socketController");
 
 class ServerModel {
     constructor() {
+        this.origin = [
+            "http://localhost:8080",
+            "https://chiper-test.herokuapp.com",
+        ];
         this.app = express();
         this.port = process.env.PORT;
+        this.server = createServer(this.app);
+        this.io = new Server(this.server, {
+            origin: this.origin,
+        });
 
         this.dbConnector();
 
         this.middlewares();
 
         this.routes();
+
+        this.sockets();
     }
 
     async dbConnector() {
@@ -27,7 +40,11 @@ class ServerModel {
     middlewares() {
         this.app.use(express.static("public"));
         this.app.use(express.json());
-        this.app.use(cors());
+        this.app.use(
+            cors({
+                origin: this.origin,
+            })
+        );
         this.app.use(
             fileUpload({
                 useTempFiles: true,
@@ -39,6 +56,10 @@ class ServerModel {
             swaggerUI.serve,
             swaggerUI.setup(swaggerSetup)
         );
+    }
+
+    sockets() {
+        this.io.on("connection", socketController);
     }
 
     routes() {
@@ -56,7 +77,7 @@ class ServerModel {
     }
 
     listen() {
-        this.app.listen(this.port, () => {
+        this.server.listen(this.port, () => {
             /* eslint-disable no-console */
             console.log("Listening at", this.port);
         });
