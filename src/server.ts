@@ -1,14 +1,18 @@
-const express = require("express");
+import { Application } from "express";
+
+import express from "express";
 const fileUpload = require("express-fileupload");
 const cors = require("cors");
-const path = require("path");
+import path from "path";
 const swaggerUI = require("swagger-ui-express");
 
 const swaggerSetup = require("../swagger.json");
-const { dbConnector } = require("./data-access");
-const { productRouter } = require("./routes");
+import dbConnector from "./data-access";
+import productRouter from "./routes/product";
 
 class ServerModel {
+    app: Application;
+    port: any;
     constructor() {
         this.app = express();
         this.port = process.env.PORT;
@@ -63,4 +67,4 @@ class ServerModel {
     }
 }
 
-module.exports = ServerModel;
+export default ServerModel;

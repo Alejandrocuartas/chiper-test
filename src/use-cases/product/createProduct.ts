@@ -1,13 +1,13 @@
-const { Product } = require("../../entities");
+import Product from "../../entities/product";
 
-const { uploadImage } = require("../../helpers");
+import uploadImage from "../../helpers/uploadImage";
 
 const createProduct = async (
-    name,
-    price,
-    description,
-    discount = null,
-    path = null
+    name: string,
+    price: number,
+    description: string,
+    discount = 0,
+    path = ""
 ) => {
     try {
         let image = null;
@@ -22,9 +22,9 @@ const createProduct = async (
         await newProduct.save();
         const products = await Product.find();
         return products;
-    } catch (error) {
+    } catch (error: any) {
         throw new Error(error.message);
     }
 };
 
-module.exports = createProduct;
+export default createProduct;

@@ -2,7 +2,7 @@ const cloudinary = require("cloudinary").v2;
 
 cloudinary.config(process.env.CLOUDINARY_URL);
 
-const uploadImage = async (imgPath) => {
+const uploadImage = async (imgPath: string) => {
     try {
         if (imgPath) {
             const { secure_url } = await cloudinary.uploader.upload(imgPath, {
@@ -11,9 +11,9 @@ const uploadImage = async (imgPath) => {
             return secure_url;
         }
         return null;
-    } catch (error) {
+    } catch (error: any) {
         throw new Error(error.message);
     }
 };
 
-module.exports = uploadImage;
+export default uploadImage;

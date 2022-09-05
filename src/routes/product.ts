@@ -1,33 +1,27 @@
-const { Router } = require("express");
-const { body, param } = require("express-validator");
+import { Router } from "express";
+import { body, param } from "express-validator";
 
-const { validator } = require("../middlewares");
+import validator from "../middlewares/validator";
 
-const {
-    getProductsController,
-    updateProductController,
-    buyProductController,
-    deleteProductController,
-    createProductController,
-} = require("../controllers");
+import productControllers from "../controllers/product";
 
 const productRouter = Router();
 
-productRouter.get("/product", getProductsController);
+productRouter.get("/product", productControllers.getProductsController);
 productRouter.patch(
     "/product/:id",
     [param("id", "The id is required and MongoId").isMongoId(), validator],
-    updateProductController
+    productControllers.updateProductController
 );
 productRouter.delete(
     "/product/:id",
     [param("id", "The id is required and MongoId").isMongoId(), validator],
-    deleteProductController
+    productControllers.deleteProductController
 );
 productRouter.patch(
     "/product/buy/:id",
     [param("id", "The id is required and MongoId").isMongoId(), validator],
-    buyProductController
+    productControllers.buyProductController
 );
 productRouter.post(
     "/product",
@@ -39,7 +33,7 @@ productRouter.post(
         body("price", "The price of the product is required").not().isEmpty(),
         validator,
     ],
-    createProductController
+    productControllers.createProductController
 );
 
-module.exports = productRouter;
+export default productRouter;

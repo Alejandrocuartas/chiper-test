@@ -145,35 +145,34 @@
                 "parameters": [
                     {
                         "name": "name",
-                        "in": "formData",
+                        "in": "FormData",
                         "description": "name of the product",
                         "required": true,
                         "type": "string"
                     },
                     {
                         "name": "description",
-                        "in": "formData",
+                        "in": "FormData",
                         "description": "description of the product",
                         "required": true,
                         "type": "string"
                     },
                     {
                         "name": "discount",
-                        "in": "formData",
+                        "in": "FormData",
                         "description": "percentage of the discount",
                         "required": false,
                         "type": "number"
                     },
                     {
                         "name": "productImage",
-                        "in": "formData",
+                        "in": "FormData",
                         "description": "image of the product",
-                        "required": true,
                         "type": "file"
                     },
                     {
                         "name": "price",
-                        "in": "formData",
+                        "in": "FormData",
                         "description": "price of the product",
                         "required": true,
                         "type": "number"
