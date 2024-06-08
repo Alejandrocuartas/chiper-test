@@ -15,7 +15,7 @@ class ServerModel {
     constructor() {
         this.origin = [
             "http://localhost:8080",
-            "https://chiper-test.herokuapp.com",
+            "https://main.d1wz2eh65rj09o.amplifyapp.com",
         ];
         this.app = express();
         this.port = process.env.PORT;
